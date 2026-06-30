@@ -1,0 +1,52 @@
+[
+  {
+    "id": "dg",
+    "code": "DG",
+    "label": "Direction Générale",
+    "subname": "Rédaction",
+    "desc": "Assistance à la rédaction de documents officiels — lettres, rapports, PV, mémoires et demandes administratives.",
+    "icon": "🏛️",
+    "available": true,
+    "color": "#1A6B3C"
+  },
+  {
+    "id": "dso",
+    "code": "DSO",
+    "label": "Division des Services aux Organisations",
+    "subname": "Services aux Organisations",
+    "desc": "Recyclage, perfectionnement, appui-conseil et formation des formateurs pour les administrations publiques.",
+    "icon": "🏢",
+    "available": false,
+    "color": "#2563EB"
+  },
+  {
+    "id": "dinep",
+    "code": "DINEP",
+    "label": "Division des Normes et l'Évaluation Pédagogique",
+    "subname": "Normes & Évaluation Pédagogique",
+    "desc": "Définition des référentiels de compétences, évaluation des programmes et certification pédagogique.",
+    "icon": "📐",
+    "available": false,
+    "color": "#7C3AED"
+  },
+  {
+    "id": "dfsr",
+    "code": "DFSR",
+    "label": "Division de la Formation Supérieure et de la Recherche",
+    "subname": "Formation Supérieure & Recherche",
+    "desc": "Gestion des filières de master, supervision de la recherche et encadrement des mémoires de fin d'études.",
+    "icon": "🎓",
+    "available": false,
+    "color": "#DC2626"
+  },
+  {
+    "id": "daf",
+    "code": "DAF",
+    "label": "Division de l'Administration et des Finances",
+    "subname": "Administration & Finances",
+    "desc": "Gestion des ressources humaines, financières et matérielles de l'Institut Supérieur de Management Public.",
+    "icon": "💼",
+    "available": false,
+    "color": "#D97706"
+  }
+]
