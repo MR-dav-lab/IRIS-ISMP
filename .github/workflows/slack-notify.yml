@@ -1,0 +1,67 @@
+name: Notification Slack - Push IRIS
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  notify-slack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Recuperer les infos du commit
+        id: commit_info
+        run: |
+          echo "message=$(git log -1 --pretty=%s '${{ github.sha }}' | sed 's/"/\\"/g')" >> $GITHUB_OUTPUT
+          echo "author=${{ github.actor }}" >> $GITHUB_OUTPUT
+          echo "branch=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          echo "short_sha=$(echo '${{ github.sha }}' | cut -c1-7)" >> $GITHUB_OUTPUT
+          echo "repo_url=${{ github.server_url }}/${{ github.repository }}" >> $GITHUB_OUTPUT
+
+      - name: Envoyer la notification Slack
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{
+            "blocks": [
+              {
+                "type": "header",
+                "text": {
+                  "type": "plain_text",
+                  "text": "🌿 IRIS — Nouveau push",
+                  "emoji": true
+                }
+              },
+              {
+                "type": "section",
+                "fields": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Branche:*\n`${{ steps.commit_info.outputs.branch }}`"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Auteur:*\n${{ steps.commit_info.outputs.author }}"
+                  }
+                ]
+              },
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Message du commit:*\n${{ steps.commit_info.outputs.message }}"
+                }
+              },
+              {
+                "type": "context",
+                "elements": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "<${{ steps.commit_info.outputs.repo_url }}/commit/${{ github.sha }}|Voir le commit ${{ steps.commit_info.outputs.short_sha }}> · Institut Supérieur de Management Public"
+                  }
+                ]
+              }
+            ]
+          }' \
+          "$SLACK_WEBHOOK_URL"
